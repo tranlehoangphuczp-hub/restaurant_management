@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Đặt món tại bàn - Nhà hàng Đồng Quê">
+    <title>Đặt món - Nhà hàng Đồng Quê</title>
+    <link rel="stylesheet" th:href="@{/css/order.css}">
+</head>
+<body>
+
+
+<div class="table-overlay" id="table-overlay">
+    <div class="table-modal">
+        <h2>👋 Chào mừng!</h2>
+        <p>Vui lòng chọn số bàn của bạn để bắt đầu đặt món. Sau khi chọn, bạn có thể thoải mái gọi thêm món bất kỳ lúc nào.</p>
+        <div class="table-grid-picker" id="table-grid-picker">
+            <p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:20px 0">
+                Đang tải danh sách bàn...
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<header class="order-header">
+    <div class="header-brand">
+        <span class="dot"></span>
+        Nhà hàng Đồng Quê
+    </div>
+
+    <div class="header-table-badge" id="header-table-badge" style="display:none">
+        
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px">
+
+        
+        <div class="header-bill-total">
+            💰 <span id="header-bill-total">0 ₫</span>
+        </div>
+
+        
+        <button class="cart-toggle-btn" onclick="toggleCart()">
+            🛒 Giỏ hàng
+            <span class="cart-count" id="cart-count">0</span>
+        </button>
+
+    </div>
+</header>
+
+
+<main class="order-main" id="order-main">
+
+    
+    <div class="order-hero">
+        <h1>Thực đơn hôm nay</h1>
+        <p>Chọn món yêu thích và chúng tôi sẽ phục vụ ngay tại bàn</p>
+    </div>
+
+    
+    <section class="menu-section">
+        <p class="menu-section-title">Tất cả món ăn</p>
+
+        <div class="filter-bar">
+            <select id="category-filter" class="filter-btn">
+                <option value="">Tất cả</option>
+                <option value="COM">Cơm</option>
+                <option value="BUN_PHO">Bún/Phở</option>
+                <option value="BANH_MI">Bánh mì</option>
+                <option value="LAU_NUONG">Lẩu/Nướng</option>
+                <option value="DO_UONG">Đồ uống</option>
+                <option value="AN_VAT">Ăn vặt</option>
+                <option value="TRANG_MIENG">Tráng miệng</option>
+            </select>
+
+            <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Tìm món..."
+                    class="filter-btn"
+                    style="flex:1"
+            >
+        </div>
+
+        <div class="menu-grid" id="menu-grid">
+            <p style="color:var(--text-muted)">Đang tải thực đơn...</p>
+        </div>
+    </section>
+
+</main>
+
+
+<div class="cart-sidebar" id="cart-sidebar">
+
+    
+    <div class="cart-header">
+        <h3>🛒 Giỏ hàng</h3>
+        <button class="cart-close-btn" onclick="toggleCart()">✕</button>
+    </div>
+
+    
+    <div class="cart-tabs">
+        <button class="tab-btn active" onclick="switchTab('cart', event)">Giỏ hàng</button>
+        <button class="tab-btn" onclick="switchTab('bill', event)">Hóa đơn</button>
+    </div>
+
+    
+    <div id="cart-tab" class="tab-content active">
+
+        <div class="cart-items" id="cart-items-list">
+            <div class="cart-empty">
+                <span class="cart-empty-icon">🛒</span>
+                <p>Giỏ hàng trống</p>
+            </div>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span class="cart-total-label">Tổng cộng</span>
+                <span class="cart-total-price" id="cart-total">0 ₫</span>
+            </div>
+            <button class="order-submit-btn" id="submit-btn" onclick="submitOrder()" disabled>
+                Xác nhận đặt món
+            </button>
+        </div>
+
+    </div>
+
+    
+    <div id="bill-tab" class="tab-content">
+
+        <div class="cart-items" id="bill-items">
+            <p style="padding:10px;color:gray">Chưa có dữ liệu</p>
+        </div>
+
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Tổng hóa đơn</span>
+                <span id="bill-total">0 ₫</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+<script th:src="@{/js/order.js}"></script>
+</body>
+</html>
